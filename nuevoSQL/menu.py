@@ -14,12 +14,11 @@ def menu():
             opcion = int(input('Ingrese un opcion: '))
             if(opcion < 1 and opcion > 5):
                 print('No valido')
-            elif opcion == 5:
+            elif opcion == 6:
                 avanza = False
             else:
                 correcta = True
                 opciones(opcion)
-
 
 def opciones(opcion):
     gene = Generico()
@@ -66,17 +65,19 @@ def opciones(opcion):
         except:
             print('No se pudo eliminar')
     elif opcion == 5:
+        vueloE = met.buscar(vuelo)
         try:
-            vuelo = gene.listar()
+            gene.buscar(vueloE)
             if len(vuelo) > 0:
                 vueloE = met.buscar(vuelo)
                 if not (vueloE == ""):# si no esta vacio
-                    gene.buscar(vueloE)
-                    met.listar(vueloE)
+                   # encontrado = gene.buscar(vueloE)
+                   # met.listar(encontrado)
+                   pass
                 else:
                     print('No se encontro el numero')
             else:
-                print('Error al buscar')
+                print('No se encontro registros')
         except:
             print('No se pudo buscar')
 menu()

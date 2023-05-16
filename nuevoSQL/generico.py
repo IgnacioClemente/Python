@@ -10,7 +10,7 @@ class Generico():
                 port = 3306, #el puerto del xampp
                 user = 'root',
                 password = '',
-                database = '', #poner el nombre de la base de datos de mysql
+                database = 'aerolineas', #poner el nombre de la base de datos de mysql
             )
         except Error as ex:
             print('Error en la conexion con la base de datos: {0}'.format(ex))
@@ -63,10 +63,9 @@ class Generico():
             try:
                 cursor = self.conexion.cursor() #booleano
                 buscar = "SELECT * FROM VUELOS WHERE nro = {0}"
-                cursor.execute(buscar.format(vueloBuscar))#ejecuto el eliminar
+                cursor.execute(buscar.format(vueloBuscar))#ejecuto el buscar
                 print('Vuelo Encontrado')
-                respuesta = cursor.fetchone() ##trae todo lo que encuentra en la base de datos
-                print(respuesta)
+                respuesta = cursor.fetchone() ##trae solo el numero solicitado de la base de datos
                 return respuesta
             except Error as ex:
                 print('No se pudo encontrar el vuelo: {0}'.format(ex))

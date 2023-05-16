@@ -47,10 +47,11 @@ class Metodos():
         return numeroEliminar
     
     def buscar(self,vueloBuscar):
+        self.listar(vueloBuscar)
         numeroCorrecto = False
         numeroBuscar = int(input('Numero a buscar: '))
         for vue in vueloBuscar:
-            if vue[0] == vueloBuscar:
+            if vue[0] == numeroBuscar:
                 numeroCorrecto = True
                 break
         if not numeroCorrecto:
