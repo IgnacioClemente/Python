@@ -1,0 +1,10 @@
+<form action="/actualizarVuelo/{{vuelos.0}}" method="POST">
+    <h1>Formulario de edicion</h1>
+    <label type="number" name="numero" placeholder="Numero" value="{{vuelos.0}}"><br> <!-- muestra los datos ya registrados -->
+    <input type="text"  name="fecha" placeholder="AAAA-MM-DD"value="{{vuelos.1}}"><br>
+    <input type="text"  name="hora" placeholder="H:M:S"value="{{vuelos.2}}"><br>
+    <input type="text" name="ciudad" placeholder="Ciudad"value="{{vuelos.3}}"> <br>
+    <input type="number" name="personal" placeholder="Personal"value="{{vuelos.4}}"><br>
+    <input type="text" name="patente" placeholder="Patente"value="{{vuelos.5}}"><br>
+    <button type="submit">Actualizar</button>
+</form>
