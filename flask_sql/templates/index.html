@@ -13,8 +13,20 @@
         <input type="text"  name="fecha" placeholder="AAAA-MM-DD"><br>
         <input type="text"  name="hora" placeholder="H:M:S"><br>
         <input type="text" name="ciudad" placeholder="Ciudad"> <br>
-        <input type="number" name="personal" placeholder="Personal"><br>
-        <input type="text" name="patente" placeholder="Patente"><br>
+        <select name="personal" id="">
+            <option value="">Seleccione Personal</option>
+            {% for p in personal %}
+            <option value="{{p.0}}">{{p.1}} {{p.0}}</option> <!-- agrego el valor de la posicion 0 y lo pego en base de datos 
+            y luego imprimo primero el nombre y luego el numero-->
+            {% endfor %}
+        </select><br>
+        <select name="patente" id="">
+            <option value="">Seleccione Patente</option>
+            {% for a in patente %}
+            <option value="{{a.0}}">{{a.0}} {{a.1}}</option> <!-- agrego el valor de la posicion 0 y lo pego en base de datos 
+            y luego imprimo primero el nombre y luego el numero-->
+            {% endfor %}
+        </select><br>
         <button type="submit">Enviar</button>
     </form>
 </body>

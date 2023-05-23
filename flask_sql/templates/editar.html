@@ -4,7 +4,27 @@
     <input type="text"  name="fecha" placeholder="AAAA-MM-DD"value="{{vuelos.1}}"><br>
     <input type="text"  name="hora" placeholder="H:M:S"value="{{vuelos.2}}"><br>
     <input type="text" name="ciudad" placeholder="Ciudad"value="{{vuelos.3}}"> <br>
-    <input type="number" name="personal" placeholder="Personal"value="{{vuelos.4}}"><br>
-    <input type="text" name="patente" placeholder="Patente"value="{{vuelos.5}}"><br>
+    <select name="personal" id=>
+        {% for p in personal %}
+        {%if p[0] == vuelos.4 %}
+        <option value="{{p.0}}">{{p.1}} {{p.0}}</option> <!-- agrego el valor de la posicion 0 y lo pego en base de datos 
+        y luego imprimo primero el nombre y luego el numero-->
+       {% endif %}
+        {% endfor %}
+        {% for p in personal %}
+        <option value="{{p.0}}">{{p.1}} {{p.0}}</option>
+        {% endfor %}
+    </select><br>
+    <select name="patente" id=>
+        {% for a in patente %}
+        {%if a[0] == vuelos.5 %}
+        <option value="{{a.0}}">{{a.0}} {{a.1}}</option> <!-- agrego el valor de la posicion 0 y lo pego en base de datos 
+        y luego imprimo primero el nombre y luego el numero-->
+        {% endif %}
+        {% endfor %}
+        {% for a in patente %}
+        <option value="{{a.0}}">{{a.1}} {{a.0}}</option>
+        {% endfor %}
+    </select><br>
     <button type="submit">Actualizar</button>
 </form>

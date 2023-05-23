@@ -12,7 +12,13 @@ mysql = MySQL(app)
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    cursor = mysql.connection.cursor()
+    cur= mysql.connection.cursor()
+    cursor.execute('SELECT * FROM PERSONAL')
+    cur.execute('SELECT * FROM AVION')
+    respuesta = cursor.fetchall()
+    res = cur.fetchall()
+    return render_template('index.html',personal = respuesta, patente = res)
 
 @app.route('/listado')
 def listado():
@@ -31,7 +37,8 @@ def registrar():
         personal = request.form['personal']
         patente = request.form['patente']
         cursor = mysql.connection.cursor()
-        cursor.execute("INSERT INTO VUELOS (nro,fecha,hora,ciudad,personal,patente)VALUES(%s, %s, %s, %s, %s, %s)",(numero,fecha,hora,ciudad,personal,patente))
+        cursor.execute("INSERT INTO VUELOS (nro,fecha,hora,ciudad,personal,patente)VALUES(%s, %s, %s, %s, %s, %s)",
+        (numero,fecha,hora,ciudad,personal,patente)) #el porcentaje s significa que vas a poner los valores que te paso a continuacion
         mysql.connection.commit()
         print(numero,ciudad,patente)
         return redirect(url_for('index'))
@@ -39,9 +46,15 @@ def registrar():
 @app.route('/editarVuelos/<id>')  #el id es lo que le pase entre llaves en el html
 def obtenerVuelo(id):
     cursor = mysql.connection.cursor()
+    cur= mysql.connection.cursor()
+    cu= mysql.connection.cursor()
     cursor.execute('SELECT * FROM VUELOS WHERE nro = %s' % (id)) #el numero que tengo en id lo igualo a nro
+    cur.execute('SELECT * FROM PERSONAL')
+    cu.execute('SELECT * FROM AVION')
     respuesta = cursor.fetchall()
-    return render_template('editar.html',vuelos = respuesta[0])
+    res = cur.fetchall()
+    re = cu.fetchall()
+    return render_template('editar.html',vuelos = respuesta[0],patente = re, personal = res)
 
 @app.route('/actualizarVuelo/<nro>',methods = ['POST'])#pasarle la variable como esta escrita en la base de datos
 def actualizar(nro):
@@ -58,7 +71,7 @@ def actualizar(nro):
         ciudad = %s,
         personal = %s,
         patente = %s
-        WHERE nro =%s""",(fecha,hora,ciudad,personal,patente,nro)) #traigo los valores que tengo en la base de datos
+        WHERE nro =%s""",(fecha,hora,ciudad,personal,patente,nro)) #traigo los valores que tengo en la base de datos y se los paso en el update
         mysql.connection.commit()
         print(nro,ciudad,patente)
         return redirect(url_for('index'))
