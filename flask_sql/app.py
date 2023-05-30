@@ -1,4 +1,4 @@
-from flask import Flask, render_template,request,redirect,url_for
+from flask import Flask, render_template,request,redirect,url_for,flash
 from flask_mysqldb import MySQL
 
 app = Flask(__name__)
@@ -7,6 +7,7 @@ app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
 app.config['MYSQL_PASSWORD'] = ''
 app.config['MYSQL_DB'] = 'aerolineas'
+app.secret_key = 'mysecretkey'
 
 mysql = MySQL(app)
 
@@ -40,7 +41,7 @@ def registrar():
         cursor.execute("INSERT INTO VUELOS (nro,fecha,hora,ciudad,personal,patente)VALUES(%s, %s, %s, %s, %s, %s)",
         (numero,fecha,hora,ciudad,personal,patente)) #el porcentaje s significa que vas a poner los valores que te paso a continuacion
         mysql.connection.commit()
-        print(numero,ciudad,patente)
+        flash('Registro Agregado')
         return redirect(url_for('index'))
     
 @app.route('/editarVuelos/<id>')  #el id es lo que le pase entre llaves en el html
@@ -74,6 +75,7 @@ def actualizar(nro):
         WHERE nro =%s""",(fecha,hora,ciudad,personal,patente,nro)) #traigo los valores que tengo en la base de datos y se los paso en el update
         mysql.connection.commit()
         print(nro,ciudad,patente)
+        flash('Registro Actualizado')
         return redirect(url_for('index'))
     
 @app.route('/eliminarVuelo/<string:nro>')  #el id es lo que le pase entre llaves en el html lo convierto en string
@@ -81,6 +83,7 @@ def eliminar(nro):
     cursor = mysql.connection.cursor()
     cursor.execute('DELETE FROM VUELOS WHERE nro = {0}'.format(nro)) #el numero que tengo en id lo igualo a nro
     mysql.connection.commit()#lo elimino
+    flash('Registro Eliminado')
     return redirect(url_for('index'))
     
 if __name__ == '__main__':
